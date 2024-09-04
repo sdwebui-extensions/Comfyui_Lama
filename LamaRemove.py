@@ -96,6 +96,8 @@ class LamaModelLoader:
         config.training_model.predict_only = True
         config.visualizer.kind = 'noop'
         checkpoint_path = os.path.join(MODELS_DIR,config.model.checkpoint)
+        if not os.path.exists(checkpoint_path) and os.path.exists("/stable-diffusion-cache/models/inpaint"):
+            checkpoint_path = "/stable-diffusion-cache/models/inpaint/big-lama.ckpt"
         model = load_checkpoint(config, checkpoint_path, strict=False)
         model.to(device)
         model.freeze()
